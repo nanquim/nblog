@@ -1,0 +1,23 @@
+> menu durante leitura contrai e fica transparente
+> paginas: início ... todos os textos por ordem decrescente de postagem 
+           login formulário
+                incluirNoticia formulário
+           categorias ??? 
+           contato formulário
+
+IMPLEMENTAR
+- Login usuário
+- Página para usuário logado
+- Salvar notícia
+- Lista notícia na tela inicial (por ordem decrescente de postagem)
+- Listar notícias por categoria
+
+
+
+
+
+
+dica: gerenciar senha com lastpass e similares
+      protonmail
+      duckduckgo
+

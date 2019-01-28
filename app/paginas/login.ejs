@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <% include partes/head.ejs %>
+    
+    <script>
+    $( document ).ready(function() {
+      
+        $("#form_registro").hide();
+        
+        $("#registrar").click(function () {
+            $("#form_login").hide();
+            $("#form_registro").show();
+        });   
+        
+        $("#logar").click(function () {
+            $("#form_registro").hide();
+            $("#form_login").show();
+        });  
+    }); 
+    </script>
+</head>
+
+<body>
+    <header>
+        <% include partes/menu.ejs %>
+    </header>
+    <main>
+        <div class="container">
+            <!-- TODO bug validação está persistindo entre os forms por estarem na msm página -->
+            <!-- TODO se a validação for ok, mudar cor do focus do form de vermelho pra verde -->
+            <!-- TODO colocar ícones nos formulários -->
+            <% if(validacao.length > 0) { %>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger">
+                        <strong>Atenção!</strong>
+                        <ul>
+                            <% for(var i = 0; i < validacao.length; i++ ) { %>
+                            <li>
+                                <%= validacao[i].msg %>
+                            </li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <div class="row" id="form_login">
+                <div class="col-sm-6 offset-sm-3 text-center">
+                    <form action="/admin/logar" method="POST">
+                        <fieldset>
+                            <legend>Login</legend>
+                            <div class="form-group">
+                                <label for="form-l-email">Email:</label>
+                                <input type="email" class="form-control" id="form-l-email" name="form-l-email"
+                                    aria-describedby="emailHelp" placeholder="Seu email">
+                            </div>
+                            <div class="form-group">
+                                <label for="form-l-senha">Senha:</label>
+                                <input type="password" class="form-control" id="form-l-senha" name="form-l-email"
+                                    placeholder="Sua senha">
+                            </div>
+                            <!-- TODO implementar -->
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Lembre de mim</label>
+                            </div>
+                            <button type="submit" class="btn btn-success">Logar</button>
+                        </fieldset>
+                        <div>
+                            Novo usuário?
+                            <a href="#" id="registrar">Registre-se!</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row" id="form_registro">
+                <div class="col-sm-6 offset-sm-3 text-center">
+                        <form action="/registrar" method="POST">
+                        <fieldset>
+                            <legend>Registro</legend>
+                            <div class="form-group">
+                                <label for="nome">Nome:</label>
+                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome">
+                            </div>
+                            <div class="form-group">
+                                <label for="nome">Email:</label>
+                                <input type="email" class="form-control" id="nome" name="email"
+                                    placeholder="Seu email">
+                            </div>
+                            <div class="form-group">
+                                <label for="senha">Senha:</label>
+                                <input type="password" class="form-control" id="senha" name="senha"
+                                    placeholder="Sua senha">
+                            </div>
+                            <!-- TODO implementar -->
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                                <label class="form-check-label" for="exampleCheck1">Lembre de mim</label>
+                            </div>
+                            <button type="submit" class="btn btn-success">Registrar</button>
+                        </fieldset>
+                        <div>
+                            Já tem uma conta?
+                            <a href="#" id="logar">Logue!</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <% include partes/rodape.ejs %>
+    </footer>
+</body>
+</html>
