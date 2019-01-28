@@ -1,4 +1,6 @@
-
+* {
+    font-family: 'Raleway', sans-serif;
+}
 /** NAVBAR */
 .navbar-custom {
     background-color: #28a745;

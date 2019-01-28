@@ -10,12 +10,14 @@ module.exports.registraUsuario = function (application, req, res) {
     console.log('req.body >>> ' + req.body);
     
     //express
-        //da url
+        //da url    
     console.log('req.query.name >>> ' + req.query.name);
         //parâmetro das rotas
     console.log('req.query.name >>> ' + req.param);
     
-    var usuario = req.body;
+    res.send('REGISTRADO');
+
+    //var usuario = req.body;
 
     /** Validação do formulário */
     //TODO validar formatos
@@ -30,19 +32,21 @@ module.exports.registraUsuario = function (application, req, res) {
     if (errosValidacao) {
         res.render('login', {
             validacao: errosValidacao,
-            usuario: usuario
+            usuario: {}
         });
         return;
     }
-
+    
+   
+    
     /** Conexão com banco */
     /* var conexao = application.config.conectarBD();
-    var novoUsuario = new application.app.modelos.UsuariosModel(conexao);
+    var u = new application.app.modelos.UsuariosModel(conexao);
 
-    novoUsuario.getUsuario(usuario, function (error, result) {
+    u.getUsuario(usuario, function (error, result) {
         console.log(result);
         
-        novoUsuario.novoUsuario(usuario);
+        u.novoUsuario(usuario);
     }); */
 
 }
@@ -68,6 +72,8 @@ module.exports.logaUsuario = function (application, req, res) {
         });
         return;
     }
+
+    res.send('LOGADO');
 
     /** conexão com banco */
     var conexao = application.config.conectarBD();
