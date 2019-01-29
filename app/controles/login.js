@@ -21,7 +21,7 @@ module.exports.registraUsuario = function (application, req, res) {
 
     /** Validação do formulário */
     //TODO validar formatos
-    req.assert('nome', 'Nome é obrigatório').notEmpty();
+    /* req.assert('nome', 'Nome é obrigatório').notEmpty();
     req.assert('email', 'Email é obrigatório').notEmpty();
     req.assert('senha', 'Senha é obrigatório').notEmpty();
 
@@ -35,7 +35,7 @@ module.exports.registraUsuario = function (application, req, res) {
             usuario: {}
         });
         return;
-    }
+    } */
     
    
     

@@ -30,7 +30,6 @@
             <!-- TODO bug validação está persistindo entre os forms por estarem na msm página -->
             <!-- TODO se a validação for ok, mudar cor do focus do form de vermelho pra verde -->
             <!-- TODO colocar ícones nos formulários -->
-            <!-- TODO Comparar se as 2 senhas do form registro são iguais -->
             <% if(validacao.length > 0) { %>
             <div class="row">
                 <div class="col-md-12">
@@ -52,15 +51,17 @@
                     <form action="/logar" method="POST">
                         <fieldset>
                             <legend>Login</legend>
-                            <div class="form-group">
-                                <label for="formLoginEmail">Email:</label>
-                                <input type="email" class="form-control" id="formLoginEmail" name="formLoginEmail"
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="form-login-email">Email:</label>
+                                <input type="email" class="form-control" id="form-login-email" name="form-login-email"
                                     aria-describedby="emailHelp" placeholder="Seu email" autocomplete="email" required>
+                                <span class="form-control-feedback glyphicon glyphicon-envelope"></span>
                             </div>
-                            <div class="form-group">
-                                <label for="formLoginSenha">Senha:</label>
-                                <input type="password" class="form-control" id="formLoginSenha" name="formLoginSenha"
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="form-login-senha">Senha:</label>
+                                <input type="password" class="form-control" id="form-login-senha" name="form-login-senha"
                                     placeholder="Sua senha" autocomplete="senha" required>
+                                <span class="form-control-feedback glyphicon glyphicon-lock"></span>
                             </div>
                             <!-- TODO implementar -->
                             <div class="form-check">
@@ -81,24 +82,28 @@
                         <form action="/registrar" method="POST">
                         <fieldset>
                             <legend>Registro</legend>
-                            <div class="form-group">
-                                <label for="formRegistroNome">Nome:</label>
-                                <input type="text" class="form-control" id="formRegistroNome" name="formRegistroNome" placeholder="Seu nome" required>
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="form-registro-nome">Nome:</label>
+                                <input type="text" class="form-control" id="form-registro-nome" name="form-registro-nome" placeholder="Seu nome" required>
+                                <span class="form-control-feedback glyphicon glyphicon-user"></span>
                             </div>
-                            <div class="form-group">
-                                <label for="formRegistroEmail">Email:</label>
-                                <input type="email" class="form-control" id="formRegistroEmail" name="formRegistroEmail"
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="form-registro-email">Email:</label>
+                                <input type="email" class="form-control" id="form-registro-email" name="form-registro-email"
                                     placeholder="Seu email" autocomplete="email" required>
+                                <span class="form-control-feedback glyphicon glyphicon-envelope"></span>
                             </div>
-                            <div class="form-group">
-                                <label for="formRegistroSenha">Senha:</label>
-                                <input type="password" class="form-control" id="formRegistroSenha" name="formRegistroSenha"
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="form-registro-senha">Senha:</label>
+                                <input type="password" class="form-control" id="form-registro-senha" name="form-registro-senha"
                                     placeholder="Sua senha" autocomplete="senha" required>
+                                <span class="form-control-feedback glyphicon glyphicon-lock"></span>
                             </div>
-                            <div class="form-group">
-                                <label for="formRegistroSenhaValidacao">Repita a senha:</label>
-                                <input type="password" class="form-control" id="formRegistroSenhaValidacao" name="formRegistroSenhaValidacao"
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="form-registro-senha-validacao">Repita a senha:</label>
+                                <input type="password" class="form-control" id="form-registro-senha-validacao" name="form-registro-senha-validacao"
                                     placeholder="Sua senha" autocomplete="senha" requiredrs>
+                                <span class="glyphicon glyphicon-lock"></span>
                             </div>
                             <!-- TODO implementar -->
                             <div class="form-check">

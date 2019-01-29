@@ -1,4 +1,5 @@
 const express = require('express');
+/* const bodyParser = require('body-parser'); */
 const consign = require('consign');
 const expressValidator = require('express-validator');
 const helmet = require('helmet');
@@ -11,10 +12,11 @@ app.set('view engine', 'ejs');
 app.set('views', './app/paginas');
 
 app.use(express.static('./app/publico/'));
-app.use(express.urlencoded());
+app.use(express.urlencoded()); //express 4.16 way?
+/* app.use(bodyParser.urlencoded({ extended: true })); */
 app.use(expressValidator());
 
-consign(/* {cwd: 'app'} */)
+consign()
     .include('config/conectarBD.js')
     .then('app/modelos')
     .then('app/controles')
