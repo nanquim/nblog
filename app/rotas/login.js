@@ -12,7 +12,7 @@ module.exports = function(application) {
     
     application.post('/registrar', function(req, res) {
         console.log('Rota /registrar');
-        console.log('req.body >>>' + req.body.formLoginEmail);
+        console.log('req.query >>>' + req.query.formRegistroNome);
         /* res.status(500).send('testing'); */
         application.app.controles.login.registraUsuario(application, req, res);
     });
