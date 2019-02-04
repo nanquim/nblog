@@ -5,16 +5,7 @@ module.exports.pegaPaginaLogin = function (application, req, res) {
 
 module.exports.registraUsuario = function (application, req, res) {
     console.log('Controller registraUsuario');
-    
-    //urlencoded (body parsed)
-    console.log('req.body >>> ' + req.body);
-    
-    //express
-        //da url    
-    console.log('req.query.name >>> ' + req.query.name);
-        //parâmetro das rotas
-    console.log('req.query.name >>> ' + req.param);
-    
+  
     res.send('REGISTRADO');
 
     //var usuario = req.body;

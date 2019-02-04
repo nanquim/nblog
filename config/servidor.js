@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 app.set('views', './app/paginas');
 
 app.use(express.static('./app/publico/'));
-app.use(express.urlencoded()); //express 4.16 way?
+app.use(express.urlencoded({ extended: true })); //express 4.16 way?
 /* app.use(bodyParser.urlencoded({ extended: true })); */
 app.use(expressValidator());
 

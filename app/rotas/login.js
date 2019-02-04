@@ -12,8 +12,8 @@ module.exports = function(application) {
     
     application.post('/registrar', function(req, res) {
         console.log('Rota /registrar');
-        console.log('req.query >>>' + req.query.formRegistroNome);
-        /* res.status(500).send('testing'); */
+        console.log('req.body >>>' + req.body.formRegistroSenha);
+       
         application.app.controles.login.registraUsuario(application, req, res);
     });
 }
