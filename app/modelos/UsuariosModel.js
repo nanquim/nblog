@@ -16,7 +16,7 @@ UsuariosModel.prototype.novoUsuario = function (usuario, callback) {
 
 UsuariosModel.prototype.autenticaUsuario = function (usuario, callback) {
     console.log('Model autenticaUsuario ')
-    this._conexao.query('SELECT id_usuario FROM usuarios WHERE email = ? and senha = ? ', [usuario.email, usuario.senha], callback);
+    this._conexao.query('SELECT * FROM usuarios WHERE email = ? and senha = ? ', [usuario.email, usuario.senha], callback);
 }
 
 module.exports = function () {

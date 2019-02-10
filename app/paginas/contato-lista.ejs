@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <% include partes/head.ejs %>
+</head>
+<body>
+    <header>
+        <% include partes/menu.ejs %>
+    </header>
+    <main>
+        <div class="container">
+            <% if(contatos.length > 0){ %>
+            <% for(var i = 0; i < contatos.length; i++){ %>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contato_wrapper">
+                        <span class="contato_remetente">
+                            Nome Remetente: <%= contatos[i].nome_remetente %>
+                            Email Remetente: <%= contatos[i].email_remetente %>
+                        </span>
+                        <span class="contato_texto">
+                                <%= contatos[i].texto %>
+                        </span>
+                        <span class="contato_data">
+                            <%= contatos[i].hora_inclusao %></span>
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <% } %>
+        </div>
+    </main>
+    <footer>
+        <% include partes/rodape.ejs %>
+    </footer>
+</body>
+</html>

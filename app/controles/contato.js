@@ -21,10 +21,21 @@ module.exports.enviaContato = function(application, req, res) {
         } else {
             res.send('Contato inserido com sucesso');
         }
-    })
+    });
+}
 
+module.exports.pegaContatos = function(application, req, res) {
+    console.log('Controller pegaContatos');
 
+    /** Conexão com banco */
+    var conexao = application.config.conectarBD();
+    var contatoModel = new application.app.modelos.ContatoModel(conexao);
 
-
-
+    contatoModel.buscaContatos(function(err, result) {
+        if ( !result.length ) {
+            res.send('Erro ao buscar contatos');
+        } else {
+            res.render('contato-lista', { contatos: result });
+        }
+    });
 }

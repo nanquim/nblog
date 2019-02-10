@@ -11,6 +11,10 @@ ContatoModel.prototype.gravarContato = function (contato, callback) {
    this._conexao.query('INSERT INTO contato SET ?', contato, callback);
 }
 
+ContatoModel.prototype.buscaContatos = function (callback) {
+    this._conexao.query('SELECT * FROM contato', callback);
+}
+
 module.exports = function () {
     return ContatoModel;
 };

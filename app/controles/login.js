@@ -12,7 +12,6 @@ module.exports.registraUsuario = function (application, req, res) {
         senha: req.body.formRegistroSenha
     };
 
-   
     /** Validação do formulário */
     //TODO validar formatos
     /* req.assert('nome', 'Nome é obrigatório').notEmpty();
@@ -31,8 +30,6 @@ module.exports.registraUsuario = function (application, req, res) {
         return;
     } */
     
-   
-    
     /** Conexão com banco */
     var conexao = application.config.conectarBD();
     var usuarioModel = new application.app.modelos.UsuariosModel(conexao);
@@ -45,7 +42,6 @@ module.exports.registraUsuario = function (application, req, res) {
             res.send('usuario já registrado com a ID ' + result[0].id_usuario);
         }
     });
-
 }
 
 module.exports.logaUsuario = function (application, req, res) {
@@ -54,17 +50,13 @@ module.exports.logaUsuario = function (application, req, res) {
         email: req.body.formLoginEmail,
         senha: req.body.formLoginSenha
     };
+
     /** Validação do formulário */
     
     /** conexão com banco */
     var conexao = application.config.conectarBD();
     var UsuariosModel = new application.app.modelos.UsuariosModel(conexao);
 
-    /** TODO
-     * Verifica se usuário existe
-     * Confirma se email e senha estão corretos
-     * Direciona para a página de ADMIN/LOGADO
-     */
     UsuariosModel.buscaUsuarioPorEmail(usuario, function (error, result) {
         if ( !result.length ) { 
            res.send('Usuário não encontrado. Por favor, registre-se')
@@ -74,12 +66,10 @@ module.exports.logaUsuario = function (application, req, res) {
                 if( !result.length ) {
                     res.send('erro na autenticacao, verifique senha')
                 } else {
-                    res.send('usuario logado');
+                    //res.send('usuario logado');
+                    res.render('adm', { usuario: result });
                 }
             })
         }
     });
-
-    //chama model / dao
-
 }
