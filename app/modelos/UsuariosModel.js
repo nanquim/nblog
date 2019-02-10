@@ -5,7 +5,7 @@ function UsuariosModel(conexao) {
 /** Se usuário existir, retorna a id_usuario */
 UsuariosModel.prototype.getUsuario = function (usuario, callback) {
     console.log('Model getUsuario');
-    this._conexao.query('SELECT id_usuario FROM usuarios WHERE email = ? ', usuario.usuario.email, ' and senha = ?', usuario.usuario.senha);
+    this._conexao.query('SELECT id_usuario FROM usuarios WHERE email = ? ', usuario, callback);
 }
 
 UsuariosModel.prototype.novoUsuario = function (usuario, callback) {

@@ -5,15 +5,19 @@ module.exports.pegaPaginaLogin = function (application, req, res) {
 
 module.exports.registraUsuario = function (application, req, res) {
     console.log('Controller registraUsuario');
-  
-    res.send('REGISTRADO');
+    //console.log('req... ' + req.body.formRegistroNome);
 
-    //var usuario = req.body;
+    let usuario = {
+        nome: req.body.formRegistroNome,
+        email: req.body.formRegistroEmail,
+        senha: req.body.formRegistroSenha
+    };
 
+   
     /** Validação do formulário */
     //TODO validar formatos
     /* req.assert('nome', 'Nome é obrigatório').notEmpty();
-    req.assert('email', 'Email é obrigatório').notEmpty();
+    req.assert('email', 'Email é obr    igatório').notEmpty();
     req.assert('senha', 'Senha é obrigatório').notEmpty();
 
     var errosValidacao = req.validationErrors();
@@ -31,14 +35,21 @@ module.exports.registraUsuario = function (application, req, res) {
    
     
     /** Conexão com banco */
-    /* var conexao = application.config.conectarBD();
+    var conexao = application.config.conectarBD();
     var u = new application.app.modelos.UsuariosModel(conexao);
 
-    u.getUsuario(usuario, function (error, result) {
-        console.log(result);
-        
-        u.novoUsuario(usuario);
-    }); */
+    //usuario.formRegistroEmail
+    u.getUsuario(usuario.email, function (error, result) {
+        //console.log('result...' + result[0].id_usuario);
+        if ( !result.length ) { 
+           // res.send('usuario nao existe');
+           u.novoUsuario(usuario);
+        } else { 
+            res.send('usuario existe');
+        }
+        //res.send(result);
+        //u.novoUsuario(usuario);
+    });
 
 }
 
