@@ -5,7 +5,6 @@ module.exports.pegaPaginaLogin = function (application, req, res) {
 
 module.exports.registraUsuario = function (application, req, res) {
     console.log('Controller registraUsuario');
-    //console.log('req... ' + req.body.formRegistroNome);
 
     let usuario = {
         nome: req.body.formRegistroNome,
@@ -36,61 +35,49 @@ module.exports.registraUsuario = function (application, req, res) {
     
     /** Conexão com banco */
     var conexao = application.config.conectarBD();
-    var u = new application.app.modelos.UsuariosModel(conexao);
+    var usuarioModel = new application.app.modelos.UsuariosModel(conexao);
 
-    //usuario.formRegistroEmail
-    u.getUsuario(usuario.email, function (error, result) {
-        //console.log('result...' + result[0].id_usuario);
+    usuarioModel.buscaUsuarioPorEmail(usuario.email, function (error, result) {
         if ( !result.length ) { 
-           // res.send('usuario nao existe');
-           u.novoUsuario(usuario);
+           usuarioModel.novoUsuario(usuario);
+           res.send('novo usuario criado com sucesso: \n' + usuario);
         } else { 
-            res.send('usuario existe');
+            res.send('usuario já registrado com a ID ' + result[0].id_usuario);
         }
-        //res.send(result);
-        //u.novoUsuario(usuario);
     });
 
 }
 
 module.exports.logaUsuario = function (application, req, res) {
     console.log('Controller logaUsuario');
-    console.log(req.query)
-    var usuario = req.body;
-
+    let usuario = {
+        email: req.body.formLoginEmail,
+        senha: req.body.formLoginSenha
+    };
     /** Validação do formulário */
-    //TODO validar formatos
-    req.assert('form-l-email', 'Email é obrigatório').notEmpty();
-    req.assert('form-l-senha', 'Senha é obrigatório').notEmpty();
-
-    var errosValidacao = req.validationErrors();
-
-    console.log(errosValidacao);
-
-    if (errosValidacao) {
-        res.render('login', {
-            validacao: errosValidacao,
-            usuario: usuario
-        });
-        return;
-    }
-
-    res.send('LOGADO');
-
+    
     /** conexão com banco */
     var conexao = application.config.conectarBD();
-    var UsuariosModel = new app.app.modelos.UsuariosModel(conexao);
+    var UsuariosModel = new application.app.modelos.UsuariosModel(conexao);
 
     /** TODO
      * Verifica se usuário existe
      * Confirma se email e senha estão corretos
      * Direciona para a página de ADMIN/LOGADO
      */
-    UsuariosModel.getUsuario(usuario, function (error, result) {
-        console.log(result);
-        /* if(!result) { 
-            
-        } */
+    UsuariosModel.buscaUsuarioPorEmail(usuario, function (error, result) {
+        if ( !result.length ) { 
+           res.send('Usuário não encontrado. Por favor, registre-se')
+        } else { 
+            console.log('Usuário encontrado, vou tentar autenticar...')
+            UsuariosModel.autenticaUsuario(usuario, function(error, result) {
+                if( !result.length ) {
+                    res.send('erro na autenticacao, verifique senha')
+                } else {
+                    res.send('usuario logado');
+                }
+            })
+        }
     });
 
     //chama model / dao

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <% include partes/head.ejs %>
+    </head>
+    <body>
+        <header>
+            <% include partes/menu.ejs %>
+        </header>
+        <main>
+           <div id="perfilAdm">
+            <p>Olá, NOME, bem-vido!</p>
+
+            <ul id="acoesAdm">
+                <li>
+                    <a href="/contatos-enviados">Ver contatos de usuários</a>
+                </li>
+                <li>
+                    <a href="/incluir-artigo">Incluir novo artigo</a>
+                </li>
+            </ul>
+
+           </div>
+        </main>
+        <footer>
+            <% include partes/rodape.ejs %>
+        </footer>
+    </body>
+</html>
