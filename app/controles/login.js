@@ -36,6 +36,7 @@ module.exports.registraUsuario = function (application, req, res) {
 
     usuarioModel.buscaUsuarioPorEmail(usuario.email, function (error, result) {
         if ( !result.length ) { 
+            //TODO affectedRows???
            usuarioModel.novoUsuario(usuario);
            res.send('novo usuario criado com sucesso: \n' + usuario);
         } else { 
