@@ -34,11 +34,11 @@ module.exports.registraUsuario = function (application, req, res) {
     var conexao = application.config.conectarBD();
     var usuarioModel = new application.app.modelos.UsuariosModel(conexao);
 
-    usuarioModel.buscaUsuarioPorEmail(usuario.email, function (error, result) {
+    usuarioModel.buscaUsuarioPorEmail(usuario, function (error, result) {
         if ( !result.length ) { 
             //TODO affectedRows???
            usuarioModel.novoUsuario(usuario);
-           res.send('novo usuario criado com sucesso: \n' + usuario);
+           res.render('adm', { usuario: result });
         } else { 
             res.send('usuario já registrado com a ID ' + result[0].id_usuario);
         }
