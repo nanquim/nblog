@@ -42,9 +42,11 @@ module.exports.registraUsuario = function (application, req, res) {
         if (!result.length) {
             //TODO affectedRows???
             usuarioModel.novoUsuario(usuario, function (error, result) {
-                res.render('adm', {
-                    usuario: result
-                });
+                usuarioModel.buscaUsuarioPorId(result.insertId, function(error, result) {
+                    res.render('adm', {
+                        usuario: result
+                    });
+                })
             });
         } else {
             res.send('usuario já registrado com a ID ' + result[0].id_usuario);

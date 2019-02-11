@@ -8,6 +8,10 @@ UsuariosModel.prototype.buscaUsuarioPorEmail = function (usuario, callback) {
     this._conexao.query('SELECT id_usuario FROM usuario WHERE email = ? ', usuario.email, callback);
 }
 
+UsuariosModel.prototype.buscaUsuarioPorId = function (usuario, callback) {
+    console.log('Model buscaUsuarioPorId');
+    this._conexao.query('SELECT * FROM usuario WHERE id_usuario = ? ', usuario.email, callback);
+}
 UsuariosModel.prototype.novoUsuario = function (usuario, callback) {
     var hoje = new Date();
     usuario.data_criacao = hoje;
