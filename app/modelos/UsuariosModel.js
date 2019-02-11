@@ -3,9 +3,9 @@ function UsuariosModel(conexao) {
 }
 
 /** Se usuário existir, retorna a id_usuario */
-UsuariosModel.prototype.buscaUsuarioPorEmail = function (usuarioEmail, callback) {
+UsuariosModel.prototype.buscaUsuarioPorEmail = function (usuario, callback) {
     console.log('Model buscaUsuarioPorEmail');
-    this._conexao.query('SELECT id_usuario FROM usuario WHERE email = ? ', usuarioEmail.email, callback);
+    this._conexao.query('SELECT id_usuario FROM usuario WHERE email = ? ', usuario.email, callback);
 }
 
 UsuariosModel.prototype.novoUsuario = function (usuario, callback) {

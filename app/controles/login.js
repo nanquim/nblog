@@ -1,6 +1,9 @@
 module.exports.pegaPaginaLogin = function (application, req, res) {
     console.log('Controller pegaPaginaLogin');
-    res.render('login', {validacao: {}, usuario: {} });
+    res.render('login', {
+        validacao: {},
+        usuario: {}
+    });
 }
 
 module.exports.registraUsuario = function (application, req, res) {
@@ -29,17 +32,21 @@ module.exports.registraUsuario = function (application, req, res) {
         });
         return;
     } */
-    
+
     /** Conexão com banco */
     var conexao = application.config.conectarBD();
     var usuarioModel = new application.app.modelos.UsuariosModel(conexao);
-
+    console.log('u1.. .' + usuario);
     usuarioModel.buscaUsuarioPorEmail(usuario, function (error, result) {
-        if ( !result.length ) { 
+
+        if (!result.length) {
             //TODO affectedRows???
-           usuarioModel.novoUsuario(usuario);
-           res.render('adm', { usuario: result });
-        } else { 
+            usuarioModel.novoUsuario(usuario, function (error, result) {
+                res.render('adm', {
+                    usuario: result
+                });
+            });
+        } else {
             res.send('usuario já registrado com a ID ' + result[0].id_usuario);
         }
     });
@@ -53,22 +60,24 @@ module.exports.logaUsuario = function (application, req, res) {
     };
 
     /** Validação do formulário */
-    
+
     /** conexão com banco */
     var conexao = application.config.conectarBD();
     var UsuariosModel = new application.app.modelos.UsuariosModel(conexao);
 
     UsuariosModel.buscaUsuarioPorEmail(usuario, function (error, result) {
-        if ( !result.length ) { 
-           res.send('Usuário não encontrado. Por favor, registre-se')
-        } else { 
+        if (!result.length) {
+            res.send('Usuário não encontrado. Por favor, registre-se')
+        } else {
             console.log('Usuário encontrado, vou tentar autenticar...')
-            UsuariosModel.autenticaUsuario(usuario, function(error, result) {
-                if( !result.length ) {
+            UsuariosModel.autenticaUsuario(usuario, function (error, result) {
+                if (!result.length) {
                     res.send('erro na autenticacao, verifique senha')
                 } else {
                     //res.send('usuario logado');
-                    res.render('adm', { usuario: result });
+                    res.render('adm', {
+                        usuario: result
+                    });
                 }
             })
         }
