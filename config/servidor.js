@@ -1,6 +1,7 @@
 const express = require('express');
 const consign = require('consign');
 const expressValidator = require('express-validator');
+const sessao = require('client-sessions');
 const helmet = require('helmet');
 const jwt = require('jsonwebtoken');
 require('dotenv-safe').load();
@@ -13,6 +14,13 @@ app.set('views', './app/paginas');
 app.use(express.static('./app/publico/'));
 app.use(express.urlencoded({ extended: true }));
 app.use(expressValidator());
+
+app.use(sessao({
+    cookieName: 'session',
+    secret: process.env.SECRET,
+    duration: 30 * 60 * 1000,
+    activeDuration: 5 * 60 * 1000,
+}));
 
 consign()
     .include('config/conectarBD.js')

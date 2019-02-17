@@ -38,15 +38,17 @@ module.exports.registraUsuario = function (application, req, res) {
     var usuarioModel = new application.app.modelos.UsuariosModel(conexao);
     console.log('u1.. .' + usuario);
     usuarioModel.buscaUsuarioPorEmail(usuario, function (error, result) {
-
         if (!result.length) {
-            //TODO affectedRows???
             usuarioModel.novoUsuario(usuario, function (error, result) {
-                usuarioModel.buscaUsuarioPorId(result.insertId, function(error, result) {
-                    res.render('adm', {
-                        usuario: result
+                if(!result.length) {
+                    usuarioModel.buscaUsuarioPorId(result.insertId, function(error, result) {
+                        //console.log('RESULT >>> ' + result[0].id_usuario)
+                        req.session.user = result;
+                        res.render('adm', {
+                            usuario: result
+                        });
                     });
-                })
+                }
             });
         } else {
             res.send('usuario já registrado com a ID ' + result[0].id_usuario);
@@ -71,12 +73,11 @@ module.exports.logaUsuario = function (application, req, res) {
         if (!result.length) {
             res.send('Usuário não encontrado. Por favor, registre-se')
         } else {
-            console.log('Usuário encontrado, vou tentar autenticar...')
             UsuariosModel.autenticaUsuario(usuario, function (error, result) {
                 if (!result.length) {
                     res.send('erro na autenticacao, verifique senha')
                 } else {
-                    //res.send('usuario logado');
+                    req.session.user = result;
                     res.render('adm', {
                         usuario: result
                     });
