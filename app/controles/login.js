@@ -7,26 +7,6 @@ module.exports.pegaPaginaLogin = function (application, req, res) {
     });
 }
 
-// nao to vendo a necessiade disso, se o login e o registro já fazem essa busca
-/* module.exports.buscaUsuarioPorId = function (application, req, res) {
-    
-    var conexao = application.config.conectarBD();
-    var usuarioModel = new application.app.modelos.UsuariosModel(conexao);
-
-    var usuario;
-    usuarioModel.buscaUsuarioPorId(req.user.id_usuario, function(req, res) {
-        if(!result.length) {
-            console.log('Erro ao buscar usuário, controller login, linha 18');
-        } else {
-            return result;
-        }
-    });
-    //TODO MTO tosco
-    if(usuario != null && usuario != undefined) {
-        return usuario;
-    }
-} */
-
 module.exports.registraUsuario = function (application, req, res) {
     console.log('Controller registraUsuario');
 
