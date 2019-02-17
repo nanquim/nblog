@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(expressValidator());
 
 app.use(sessao({
-    cookieName: 'session',
+    cookieName: 'session', //nome do atrb adicionado ao obj req
     secret: process.env.SECRET,
     duration: 30 * 60 * 1000,
     activeDuration: 5 * 60 * 1000,

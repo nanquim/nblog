@@ -1,3 +1,4 @@
+/**TODO retirar; a rota pode fazer isso direto */
 module.exports.pegaPaginaLogin = function (application, req, res) {
     console.log('Controller pegaPaginaLogin');
     res.render('login', {
@@ -5,6 +6,26 @@ module.exports.pegaPaginaLogin = function (application, req, res) {
         usuario: {}
     });
 }
+
+// nao to vendo a necessiade disso, se o login e o registro já fazem essa busca
+/* module.exports.buscaUsuarioPorId = function (application, req, res) {
+    
+    var conexao = application.config.conectarBD();
+    var usuarioModel = new application.app.modelos.UsuariosModel(conexao);
+
+    var usuario;
+    usuarioModel.buscaUsuarioPorId(req.user.id_usuario, function(req, res) {
+        if(!result.length) {
+            console.log('Erro ao buscar usuário, controller login, linha 18');
+        } else {
+            return result;
+        }
+    });
+    //TODO MTO tosco
+    if(usuario != null && usuario != undefined) {
+        return usuario;
+    }
+} */
 
 module.exports.registraUsuario = function (application, req, res) {
     console.log('Controller registraUsuario');
@@ -36,14 +57,18 @@ module.exports.registraUsuario = function (application, req, res) {
     /** Conexão com banco */
     var conexao = application.config.conectarBD();
     var usuarioModel = new application.app.modelos.UsuariosModel(conexao);
-    console.log('u1.. .' + usuario);
+    //console.log('u1.. .' + usuario);
     usuarioModel.buscaUsuarioPorEmail(usuario, function (error, result) {
         if (!result.length) {
             usuarioModel.novoUsuario(usuario, function (error, result) {
-                if(!result.length) {
-                    usuarioModel.buscaUsuarioPorId(result.insertId, function(error, result) {
+                if (!result.length) {
+                    usuarioModel.buscaUsuarioPorId(result.insertId, function (error, result) {
                         //console.log('RESULT >>> ' + result[0].id_usuario)
+                        req.user = result;
+                        delete req.user.password;
                         req.session.user = result;
+                        req.session.user.autorizado = true;
+                        res.locals.user = result;
                         res.render('adm', {
                             usuario: result
                         });
@@ -52,6 +77,7 @@ module.exports.registraUsuario = function (application, req, res) {
             });
         } else {
             res.send('usuario já registrado com a ID ' + result[0].id_usuario);
+            //TODO direcionar para login
         }
     });
 }
@@ -69,20 +95,26 @@ module.exports.logaUsuario = function (application, req, res) {
     var conexao = application.config.conectarBD();
     var UsuariosModel = new application.app.modelos.UsuariosModel(conexao);
 
+    /** loga o usuário, caso exista */
     UsuariosModel.buscaUsuarioPorEmail(usuario, function (error, result) {
         if (!result.length) {
             res.send('Usuário não encontrado. Por favor, registre-se')
+            /**TODO direcionar para registro */
         } else {
             UsuariosModel.autenticaUsuario(usuario, function (error, result) {
                 if (!result.length) {
-                    res.send('erro na autenticacao, verifique senha')
+                    res.send('Erro na autenticação');
                 } else {
+                    req.user = result;
+                    delete req.user.password;
                     req.session.user = result;
+                    req.session.user.autorizado = true;
+                    res.locals.user = result;
                     res.render('adm', {
                         usuario: result
                     });
                 }
-            })
+            });
         }
     });
 }
